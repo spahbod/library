@@ -14,6 +14,7 @@ public class Book {
     @GeneratedValue
     private Long id;
     private String name;
+    private String description;
 
     @ManyToMany(cascade = {
             CascadeType.PERSIST,

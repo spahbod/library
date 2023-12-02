@@ -1,7 +1,7 @@
 package my.home.library;
 
-import my.home.library.model.Book;
 import my.home.library.service.BookService;
+import my.home.library.wrapper.BookViewWrapper;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,8 +20,8 @@ public class BookServiceUnitTest {
 
     @Test
     public void whenApplicationStarts_thenHibernateCreatesInitialRecords() {
-        List<Book> books = bookService.list();
+        List<BookViewWrapper> bookViews = bookService.list();
 
-        Assert.assertEquals(books.size(), 3);
+        Assert.assertEquals( 3, bookViews.size());
     }
 }
