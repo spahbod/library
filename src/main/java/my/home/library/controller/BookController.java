@@ -22,7 +22,7 @@ public class BookController {
     public String getAllBooks(Model model) {
         StopWatch watch = new StopWatch();
         watch.start();
-        List<BookViewWrapper> bookViews = bookService.list();
+        List<BookViewWrapper> bookViews = bookService.getAllBooks();
         model.addAttribute("bookViews", bookViews);
         watch.stop();
         log.info("getAllBooks took : {} millis", watch.getTotalTimeMillis());

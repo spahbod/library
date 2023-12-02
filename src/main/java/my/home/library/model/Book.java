@@ -27,12 +27,12 @@ public class Book {
     private List<Author> authors = new ArrayList<>();
 
 
-    public void addTag(Author author) {
+    public void addAuthor(Author author) {
         authors.add(author);
         author.getBooks().add(this);
     }
 
-    public void removeTag(Author author) {
+    public void removeAuthor(Author author) {
         authors.remove(author);
         author.getBooks().remove(this);
     }

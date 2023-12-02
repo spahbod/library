@@ -17,7 +17,7 @@ public class BookService {
 
     private final BookRepository bookRepository;
 
-    public List<BookViewWrapper> list() {
+    public List<BookViewWrapper> getAllBooks() {
         return getBookViewWrappers(bookRepository.findAll());
     }
 
