@@ -21,6 +21,12 @@ public class BookService {
         return getBookViewWrappers(bookRepository.findAll());
     }
 
+
+    public void saveBook(Book book) {
+        bookRepository.save(book);
+    }
+
+
     private List<BookViewWrapper> getBookViewWrappers(List<Book> books) {
         List<BookViewWrapper> bookWrappers = new ArrayList<>();
 
@@ -29,18 +35,20 @@ public class BookService {
             wrapper.setId(book.getId());
             wrapper.setName(book.getName());
 
-            StringBuilder builder = new StringBuilder();
+            if(!book.getAuthors().isEmpty()) {
+                StringBuilder builder = new StringBuilder();
 
-            for (Author author : book.getAuthors()) {
-                builder.append(author.getName());
-                builder.append(Constraint.SPACE);
-                builder.append(author.getSurName());
-                builder.append(Constraint.COMMA);
+                for (Author author : book.getAuthors()) {
+                    builder.append(author.getName());
+                    builder.append(Constraint.SPACE);
+                    builder.append(author.getSurName());
+                    builder.append(Constraint.COMMA);
+                }
+
+                String authors = builder.toString();
+                authors = authors.substring(0, authors.lastIndexOf(Constraint.COMMA));
+                wrapper.setAuthors(authors);
             }
-
-            String authors = builder.toString();
-            authors = authors.substring(0, authors.lastIndexOf(Constraint.COMMA));
-            wrapper.setAuthors(authors);
             bookWrappers.add(wrapper);
         }
         return bookWrappers;

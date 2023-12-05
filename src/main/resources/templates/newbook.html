@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Book Management System</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container">
+    <h1>Book Management System</h1>
+    <hr>
+    <h2>Save book</h2>
+
+    <form action="#" th:action="@{/save}" th:object="${book}" method="post">
+
+        <input type="text" th:field="*{name}" placeholder="Book Name" class="form-control mb-4 col-4">
+        <input type="text" th:field="*{description}" placeholder="Book description" class="form-control mb-4 col-4">
+
+        <fieldset id="items">
+            <div th:each="i,stat : ${book.authors}">
+                <input type="text" th:field="${book.authors[__${stat.index}__].name}" placeholder="Author Name" class="form-control mb-1 col-4">
+                <input type="text" th:field="${book.authors[__${stat.index}__].surName}" placeholder="Author Surname" class="form-control mb-1 col-4">
+
+                <button type="button" onclick="reply_click()" class="btn btn-info mb-1">Remove Author</button>
+            </div>
+        </fieldset>
+
+        <hr>
+
+        <button type="button" class="btn btn-info mb-4 col-2" name="addItem">Add Author</button>
+
+        <button type="submit" class="btn btn-info mb-4 col-2">Save Book</button>
+    </form>
+
+
+    <a th:href="@{/}"> Back to Book List</a>
+</div>
+<script>
+    // jQuery
+  function replaceItems (html) {
+      // Replace the <fieldset id="items"> with a new one returned by server.
+      $('#items').replaceWith($(html).find("#items"));
+  }
+
+  $('button[name="addItem"]').click(function (event) {
+      event.preventDefault();
+      var data = $('form').serialize();
+      $.post('/addAuthorToModel',data, replaceItems);
+  });
+
+
+  $('button[name="removeItem"]').click(function (event) {
+      event.preventDefault();
+      var data = $('html').serialize();
+      // Add parameter and index of item that is going to be removed.
+      data += 'removeItem=' + $(this).val();
+      $.post('/deleteAuthorFromModel', data, replaceItems);
+  });
+</script>
+</body>
+</html>
