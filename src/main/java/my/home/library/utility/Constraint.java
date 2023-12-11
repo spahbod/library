@@ -8,4 +8,9 @@ public class Constraint {
 
     public static final String COMMA = " ,";
     public static final String SPACE = " ";
+
+
+    public static final String INDEX = "index";
+
+    public static final String NEWBOOK = "newbook";
 }
