@@ -28,13 +28,13 @@
                 <input type="text" th:field="${book.authors[__${stat.index}__].name}" placeholder="Author Name" class="form-control mb-1 col-4">
                 <input type="text" th:field="${book.authors[__${stat.index}__].surName}" placeholder="Author Surname" class="form-control mb-1 col-4">
 
-                <button type="button" onclick="reply_click()" class="btn btn-info mb-1">Remove Author</button>
+                <button type="button" th:value="${stat.index}" onclick="removeItem()" class="btn btn-info mb-1">Remove Author</button>
             </div>
         </fieldset>
 
         <hr>
 
-        <button type="button" class="btn btn-info mb-4 col-2" name="addItem">Add Author</button>
+        <button type="button" onclick="addItem()" class="btn btn-info mb-4 col-2" >Add Author</button>
 
         <button type="submit" class="btn btn-info mb-4 col-2">Save Book</button>
     </form>
@@ -43,26 +43,21 @@
     <a th:href="@{/}"> Back to Book List</a>
 </div>
 <script>
-    // jQuery
-  function replaceItems (html) {
-      // Replace the <fieldset id="items"> with a new one returned by server.
-      $('#items').replaceWith($(html).find("#items"));
-  }
+    function replaceItems (html) {
+        // Replace the <fieldset id="items"> with a new one returned by server.
+        $('#items').replaceWith($(html).find("#items"));
+    }
 
-  $('button[name="addItem"]').click(function (event) {
-      event.preventDefault();
-      var data = $('form').serialize();
-      $.post('/addAuthorToModel',data, replaceItems);
-  });
+    function removeItem(){
+        var data = $('form').serialize();
+        data += '&removeItem=' + event.srcElement.value;
+        $.post('/deleteAuthorFromModel', data, replaceItems);
+    }
 
-
-  $('button[name="removeItem"]').click(function (event) {
-      event.preventDefault();
-      var data = $('html').serialize();
-      // Add parameter and index of item that is going to be removed.
-      data += 'removeItem=' + $(this).val();
-      $.post('/deleteAuthorFromModel', data, replaceItems);
-  });
+    function addItem(){
+        var data = $('form').serialize();
+        $.post('/addAuthorToModel',data, replaceItems);
+    }
 </script>
 </body>
 </html>

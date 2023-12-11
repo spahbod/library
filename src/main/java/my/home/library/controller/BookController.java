@@ -71,7 +71,7 @@ public class BookController {
     public String deleteAuthorFromModel(@ModelAttribute("book") Book book, @RequestParam("removeItem") int index) {
         StopWatch watch = new StopWatch();
         watch.start();
-        log.info("removing book from index {}", index);
+        log.info("removing book from index {} from {}", index, book.getAuthors().size());
         Author author = book.getAuthors().get(index);
         book.removeAuthor(author);
         watch.stop();
