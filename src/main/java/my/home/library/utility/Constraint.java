@@ -6,8 +6,10 @@ public class Constraint {
         throw new IllegalStateException("Utility class");
     }
 
-    public static final String COMMA = " ,";
+    public static final String COMMA = ", ";
     public static final String SPACE = " ";
+
+    public static final Integer MAX_ITEMS = 2;
 
 
     public static final String INDEX = "index";

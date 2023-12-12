@@ -10,10 +10,7 @@ import my.home.library.wrapper.BookViewWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StopWatch;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,6 +30,13 @@ public class BookController {
         watch.stop();
         log.info("getAllBooks took : {} millis", watch.getTotalTimeMillis());
         return Constraint.INDEX;
+    }
+
+    @GetMapping("/showFormForUpdate/{id}")
+    public String updateForm(@PathVariable(value = "id") long id, Model model) {
+        Book employee = bookService.getBookById(id);
+        model.addAttribute("book", employee);
+        return "update";
     }
 
     @GetMapping("/addnew")

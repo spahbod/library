@@ -1,7 +1,6 @@
 package my.home.library.service;
 
 import lombok.AllArgsConstructor;
-import my.home.library.model.Author;
 import my.home.library.model.Book;
 import my.home.library.repository.BookRepository;
 import my.home.library.utility.Constraint;
@@ -26,6 +25,10 @@ public class BookService {
         bookRepository.save(book);
     }
 
+    public Book getBookById(long id) {
+        return bookRepository.getReferenceById(id);
+    }
+
 
     private List<BookViewWrapper> getBookViewWrappers(List<Book> books) {
         List<BookViewWrapper> bookWrappers = new ArrayList<>();
@@ -38,15 +41,19 @@ public class BookService {
             if(!book.getAuthors().isEmpty()) {
                 StringBuilder builder = new StringBuilder();
 
-                for (Author author : book.getAuthors()) {
-                    builder.append(author.getName());
+                for(int i=0 ;i < Constraint.MAX_ITEMS && i < book.getAuthors().size(); i++){
+                    builder.append(book.getAuthors().get(i).getName());
                     builder.append(Constraint.SPACE);
-                    builder.append(author.getSurName());
+                    builder.append(book.getAuthors().get(i).getSurName());
                     builder.append(Constraint.COMMA);
                 }
 
                 String authors = builder.toString();
                 authors = authors.substring(0, authors.lastIndexOf(Constraint.COMMA));
+
+                if(book.getAuthors().size() > Constraint.MAX_ITEMS){
+                    authors = authors + " (...)";
+                }
                 wrapper.setAuthors(authors);
             }
             bookWrappers.add(wrapper);
