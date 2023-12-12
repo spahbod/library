@@ -38,14 +38,4 @@ public class Book {
         authors.remove(author);
         author.getBooks().remove(this);
     }
-
-    public void addPublisher(Publisher publisher) {
-        this.publisher = publisher;
-        this.publisher.getBooks().add(this);
-    }
-
-    public void removePublisher() {
-        this.publisher.getBooks().remove(this);
-        this.publisher = null;
-    }
 }
