@@ -20,6 +20,8 @@
         <input type="text" th:field="*{name}" class="form-control mb-4 col-4">
         <h5>Description</h5>
         <input type="text" th:field="*{description}" class="form-control mb-4 col-4">
+        <h5>Publisher</h5>
+        <input type="text" th:field="*{publisher.name}" class="form-control mb-4 col-4">
         <h4>Authors</h4>
         <fieldset id="items">
             <div th:each="i,stat : ${book.authors}">

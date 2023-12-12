@@ -41,6 +41,7 @@ public class BookService {
             BookViewWrapper wrapper = new BookViewWrapper();
             wrapper.setId(book.getId());
             wrapper.setName(book.getName());
+            wrapper.setPublisher(book.getPublisher().getName());
 
             if(!book.getAuthors().isEmpty()) {
                 StringBuilder builder = new StringBuilder();

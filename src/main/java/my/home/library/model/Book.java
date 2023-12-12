@@ -26,6 +26,8 @@ public class Book {
     )
     private List<Author> authors = new ArrayList<>();
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Publisher publisher;
 
     public void addAuthor(Author author) {
         authors.add(author);
@@ -35,5 +37,15 @@ public class Book {
     public void removeAuthor(Author author) {
         authors.remove(author);
         author.getBooks().remove(this);
+    }
+
+    public void addPublisher(Publisher publisher) {
+        this.publisher = publisher;
+        this.publisher.getBooks().add(this);
+    }
+
+    public void removePublisher() {
+        this.publisher.getBooks().remove(this);
+        this.publisher = null;
     }
 }

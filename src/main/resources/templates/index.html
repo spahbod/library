@@ -20,6 +20,7 @@
         <tr>
             <th>Name</th>
             <th>Authors</th>
+            <th>Publisher</th>
             <th>Action</th>
         </tr>
         </thead>
@@ -28,6 +29,7 @@
         <tr th:each="book:${bookViews}">
             <td word-wrap:break-word th:text="${book.name}"></td>
             <td word-wrap:break-word th:text="${book.authors}"></td>
+            <td word-wrap:break-word th:text="${book.publisher}"></td>
         <td>
             <a th:href="@{/viewBook/{id}(id=${book.id})}"
                class="btn btn-primary">View</a>

@@ -7,4 +7,5 @@ public class BookViewWrapper {
     private Long id;
     private String name;
     private String authors;
+    private String publisher;
 }
