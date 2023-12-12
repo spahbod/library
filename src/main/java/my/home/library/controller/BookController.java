@@ -34,9 +34,34 @@ public class BookController {
 
     @GetMapping("/showFormForUpdate/{id}")
     public String updateForm(@PathVariable(value = "id") long id, Model model) {
+        StopWatch watch = new StopWatch();
+        watch.start();
         Book employee = bookService.getBookById(id);
         model.addAttribute("book", employee);
+        watch.stop();
+        log.info("showFormForUpdate took : {} millis", watch.getTotalTimeMillis());
         return "update";
+    }
+
+    @GetMapping("/viewBook/{id}")
+    public String viewBook(@PathVariable(value = "id") long id, Model model) {
+        StopWatch watch = new StopWatch();
+        watch.start();
+        Book employee = bookService.getBookById(id);
+        model.addAttribute("book", employee);
+        watch.stop();
+        log.info("viewBook took : {} millis", watch.getTotalTimeMillis());
+        return "view";
+    }
+
+    @GetMapping("/deleteBook/{id}")
+    public String deleteBookById(@PathVariable(value = "id") long id) {
+        StopWatch watch = new StopWatch();
+        watch.start();
+        bookService.deleteBookById(id);
+        watch.stop();
+        log.info("deleteBook took : {} millis", watch.getTotalTimeMillis());
+        return "redirect:/";
     }
 
     @GetMapping("/addnew")

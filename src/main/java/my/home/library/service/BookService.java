@@ -29,6 +29,10 @@ public class BookService {
         return bookRepository.getReferenceById(id);
     }
 
+    public void deleteBookById(long id) {
+         bookRepository.deleteById(id);
+    }
+
 
     private List<BookViewWrapper> getBookViewWrappers(List<Book> books) {
         List<BookViewWrapper> bookWrappers = new ArrayList<>();
