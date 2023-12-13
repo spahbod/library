@@ -44,25 +44,30 @@ public class BookService {
             wrapper.setPublisher(book.getPublisher().getName());
 
             if(!book.getAuthors().isEmpty()) {
-                StringBuilder builder = new StringBuilder();
-
-                for(int i=0 ;i < Constraint.MAX_ITEMS && i < book.getAuthors().size(); i++){
-                    builder.append(book.getAuthors().get(i).getName());
-                    builder.append(Constraint.SPACE);
-                    builder.append(book.getAuthors().get(i).getSurName());
-                    builder.append(Constraint.COMMA);
-                }
-
-                String authors = builder.toString();
-                authors = authors.substring(0, authors.lastIndexOf(Constraint.COMMA));
-
-                if(book.getAuthors().size() > Constraint.MAX_ITEMS){
-                    authors = authors + " (...)";
-                }
+                String authors = getAuthors(book);
                 wrapper.setAuthors(authors);
             }
             bookWrappers.add(wrapper);
         }
         return bookWrappers;
+    }
+
+    private String getAuthors(Book book) {
+        StringBuilder builder = new StringBuilder();
+
+        for(int i = 0; i < Constraint.MAX_ITEMS && i < book.getAuthors().size(); i++){
+            builder.append(book.getAuthors().get(i).getName());
+            builder.append(Constraint.SPACE);
+            builder.append(book.getAuthors().get(i).getSurName());
+            builder.append(Constraint.COMMA);
+        }
+
+        String authors = builder.toString();
+        authors = authors.substring(0, authors.lastIndexOf(Constraint.COMMA));
+
+        if(book.getAuthors().size() > Constraint.MAX_ITEMS){
+            authors = authors + " (...)";
+        }
+        return authors;
     }
 }
