@@ -1,9 +1,6 @@
 package my.home.library.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -12,8 +9,9 @@ import java.util.List;
 @Entity
 @Data
 public class Author {
+    @SequenceGenerator(name = "authorSeqGen", sequenceName = "author_id_seq", initialValue = 100, allocationSize = 1)
+    @GeneratedValue(generator = "authorSeqGen")
     @Id
-    @GeneratedValue
     private Long id;
     private String name;
     private String surName;
