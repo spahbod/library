@@ -13,3 +13,6 @@ insert into book_author values(2,1);
 insert into book_author values(3,1);
 insert into book_author values(2,2);
 insert into book_author values(2,3);
+
+
+INSERT INTO user_table(id, password, username) VALUES (1, '$2a$10$51iciojYD6a07jX.fo.yBuoHkmXUWnu3QveBD4I/eW7IYh0788E2C', 'user');
