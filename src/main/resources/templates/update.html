@@ -1,12 +1,17 @@
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="ISO-8859-1">
     <title>Book Management System</title>
-
     <link rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+
 </head>
 <body>
 <div class="container" align="center">
@@ -14,30 +19,56 @@
     <hr>
     <h2>Update Book</h2>
 
-    <form action="#" th:action="@{/save}" th:object="${book}" method="POST">
+    <form action="#" th:action="@{/update}" th:object="${book}" method="POST">
 
         <!-- Add hidden form field to handle update -->
         <input type="hidden" th:field="*{id}" />
 
+        <h5>Title</h5>
         <input type="text" th:field="*{name}" class="form-control mb-4 col-4">
+        <h5>Description</h5>
         <input type="text" th:field="*{description}" class="form-control mb-4 col-4">
+        <h5>Publisher</h5>
         <input type="text" th:field="*{publisher.name}" class="form-control mb-4 col-4">
 
+        <h4>Authors</h4>
         <fieldset id="items">
             <div th:each="i,stat : ${book.authors}">
+                <h5>Name</h5>
                 <input type="text" th:field="${book.authors[__${stat.index}__].name}"  class="form-control mb-4 col-4">
+                <h5>Surname</h5>
                 <input type="text" th:field="${book.authors[__${stat.index}__].surName}"  class="form-control mb-4 col-4">
 
                 <button type="button" th:value="${stat.index}" onclick="removeItem()" class="btn btn-info mb-1">Remove Author</button>
             </div>
         </fieldset>
 
-        <button type="submit" class="btn btn-info col-2"> Update Book</button>
+        <hr>
+
+        <button type="button" onclick="addItem()" class="btn btn-info mb-4 col-2" >Add Author</button>
+        <button type="submit" class="btn btn-info mb-4 col-2">Update Book</button>
     </form>
 
     <hr>
 
     <a th:href = "@{/}"> Back to Book List</a>
 </div>
+<script>
+    function replaceItems (html) {
+        // Replace the <fieldset id="items"> with a new one returned by server.
+        $('#items').replaceWith($(html).find("#items"));
+    }
+
+    function removeItem(){
+        var data = $('form').serialize();
+        data += '&removeItem=' + event.srcElement.value;
+        $.post('/deleteAuthorFromModel', data, replaceItems);
+    }
+
+    function addItem(){
+        var data = $('form').serialize();
+        $.post('/addAuthorToModel',data, replaceItems);
+    }
+</script>
 </body>
 </html>

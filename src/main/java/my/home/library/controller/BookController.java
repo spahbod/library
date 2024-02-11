@@ -86,6 +86,18 @@ public class BookController {
         return "redirect:/";
     }
 
+    @PostMapping("/update")
+    public String updateBook(@ModelAttribute("book") Book book) {
+        StopWatch watch = new StopWatch();
+        watch.start();
+        //bookService.deleteBookById(book.getId());
+        bookService.saveBook(book);
+        watch.stop();
+        log.info("updateBook took : {} millis", watch.getTotalTimeMillis());
+        return "redirect:/";
+    }
+
+
     @PostMapping("/addAuthorToModel")
     public String addAuthorToModel(@ModelAttribute("book") Book book) {
         StopWatch watch = new StopWatch();
