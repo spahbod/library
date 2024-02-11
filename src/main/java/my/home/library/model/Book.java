@@ -26,7 +26,10 @@ public class Book {
     )
     private List<Author> authors = new ArrayList<>();
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
     private Publisher publisher;
 
     public void addAuthor(Author author) {

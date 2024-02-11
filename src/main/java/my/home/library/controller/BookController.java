@@ -28,7 +28,7 @@ public class BookController {
         List<BookViewWrapper> bookViews = bookService.getAllBooks();
         model.addAttribute("bookViews", bookViews);
         watch.stop();
-        log.info("getAllBooks took : {} millis", watch.getTotalTimeMillis());
+        log.info("getAllBooks : {} size took : {} millis", bookViews.size(), watch.getTotalTimeMillis());
         return Constraint.INDEX;
     }
 
@@ -90,7 +90,7 @@ public class BookController {
     public String addAuthorToModel(@ModelAttribute("book") Book book) {
         StopWatch watch = new StopWatch();
         watch.start();
-        if(book != null) {
+        if (book != null) {
             book.addAuthor(new Author());
         }
         watch.stop();
