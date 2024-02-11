@@ -1,6 +1,7 @@
 
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="ISO-8859-1">
     <title>Book Management System</title>
@@ -9,6 +10,15 @@
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 </head>
 <body>
+<div class="container my-2" align="right">
+    <form th:action="@{/logout}" method="post">
+        <td>
+            <h5 th:inline="text">Hello <span th:remove="tag" sec:authentication="name">thymeleaf</span></h5>
+            <input type="submit" value="Sign Out" class="btn btn-primary btn-sm mb-3"/>
+        </td>
+    </form>
+</div>
+
 <div class="container" align="center">
     <h1>Book Management System</h1>
     <hr>

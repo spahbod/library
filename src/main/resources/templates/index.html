@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:table-layout="http://www.w3.org/1999/xhtml"
-      xmlns:word-wrap="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns:table-layout="http://www.w3.org/1999/xhtml"
+                xmlns:word-wrap="http://www.w3.org/1999/xhtml"
+                xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="ISO-8859-1">
     <title>Library</title>
@@ -10,6 +12,17 @@
           crossorigin="anonymous">
 </head>
 <body>
+
+<div class="container my-2" align="right">
+    <form th:action="@{/logout}" method="post">
+        <td>
+        <h5 th:inline="text">Hello <span th:remove="tag" sec:authentication="name">thymeleaf</span></h5>
+        <input type="submit" value="Sign Out" class="btn btn-primary btn-sm mb-3"/>
+        </td>
+    </form>
+</div>
+
+
 <div class="container my-2" align="center">
 
     <h3>Library</h3>
