@@ -25,7 +25,7 @@ public class BookController {
     public String getAllBooks(Model model) {
         StopWatch watch = new StopWatch();
         watch.start();
-        List<BookViewWrapper> bookViews = bookService.getAllBooks();
+        List<BookViewWrapper> bookViews = bookService.getBooksViews();
         model.addAttribute("bookViews", bookViews);
         watch.stop();
         log.info("getAllBooks : {} size took : {} millis", bookViews.size(), watch.getTotalTimeMillis());
@@ -90,7 +90,6 @@ public class BookController {
     public String updateBook(@ModelAttribute("book") Book book) {
         StopWatch watch = new StopWatch();
         watch.start();
-        //bookService.deleteBookById(book.getId());
         bookService.saveBook(book);
         watch.stop();
         log.info("updateBook took : {} millis", watch.getTotalTimeMillis());

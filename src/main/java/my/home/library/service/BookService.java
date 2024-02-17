@@ -1,38 +1,49 @@
 package my.home.library.service;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import my.home.library.model.Book;
 import my.home.library.repository.BookRepository;
 import my.home.library.utility.Constraint;
 import my.home.library.wrapper.BookViewWrapper;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StopWatch;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 public class BookService {
 
     private final BookRepository bookRepository;
 
-    public List<BookViewWrapper> getAllBooks() {
-        return getBookViewWrappers(bookRepository.findAll());
+    public List<BookViewWrapper> getBooksViews() {
+        return getBookViewWrappers(getAllBooks());
     }
 
+    @Cacheable("books")
+    public List<Book> getAllBooks() { return bookRepository.findAll(); }
 
+    @CachePut(value = "books", key = "#book.id")
     public void saveBook(Book book) {
         bookRepository.save(book);
     }
 
+    @Cacheable(value = "books", key = "#id")
     public Book getBookById(long id) {
         return bookRepository.getReferenceById(id);
     }
 
+    @CacheEvict(value = "books", key = "#id")
     public void deleteBookById(long id) {
          bookRepository.deleteById(id);
     }
-
 
     private List<BookViewWrapper> getBookViewWrappers(List<Book> books) {
         List<BookViewWrapper> bookWrappers = new ArrayList<>();

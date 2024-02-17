@@ -20,7 +20,7 @@ public class BookServiceUnitTest {
 
     @Test
     public void whenApplicationStarts_thenHibernateCreatesInitialRecords() {
-        List<BookViewWrapper> bookViews = bookService.getAllBooks();
+        List<BookViewWrapper> bookViews = bookService.getBooksViews();
 
         Assert.assertEquals( 3, bookViews.size());
     }
